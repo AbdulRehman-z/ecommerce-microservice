@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import { validationResult, body } from "express-validator";
+import { RequestDatabaseConnectionError } from "../errors/database-connection-error";
+import { RequestValidationError } from "../errors/request-validation-error";
 
 const router = express.Router();
 
@@ -13,17 +15,16 @@ router.post(
       .withMessage("Password must be between 4 and 20 characters"),
   ],
   (req: Request, res: Response) => {
-    console.log("req.body: ", req.body);
     const { email, password } = req.body;
-    const errors = validationResult(req);
 
+    const errors = validationResult(req);
+    console.log("Errors:", errors.array());
     if (!errors.isEmpty()) {
-      return res.status(400).send(errors.array());
+      throw new RequestValidationError(errors.array());
     }
-    res.send({
-      email,
-      password,
-    });
+
+    throw new RequestDatabaseConnectionError();
+    res.send({});
   }
 );
 
