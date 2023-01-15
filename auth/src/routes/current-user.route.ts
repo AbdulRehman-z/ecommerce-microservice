@@ -1,5 +1,4 @@
 import express from "express";
-import jwt from "jsonwebtoken";
 import { currentUserMiddleware } from "../middlewares/current-user-middleware";
 import { requireAuthMiddleware } from "../middlewares/require-auth-middleware";
 
@@ -10,7 +9,7 @@ router.get(
   currentUserMiddleware,
   requireAuthMiddleware,
   (req, res) => {
-    res.send({ currentUser: req.currentUser || null });
+    res.status(200).send({ currentUser: req.currentUser || null });
   }
 );
 

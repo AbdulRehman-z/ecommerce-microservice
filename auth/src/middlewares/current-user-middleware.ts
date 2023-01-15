@@ -36,7 +36,7 @@ export const currentUserMiddleware = (
 
     req.currentUser = decodePayload;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 
   next();

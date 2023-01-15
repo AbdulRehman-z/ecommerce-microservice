@@ -7,7 +7,7 @@ export const requireAuthMiddleware = (
   next: NextFunction
 ) => {
   if (!req.currentUser) {
-    throw new NotAuthorizedError();
+    throw new NotAuthorizedError("Not authorized");
   }
 
   next();

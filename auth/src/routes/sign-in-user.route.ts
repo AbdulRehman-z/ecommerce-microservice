@@ -37,7 +37,6 @@ router.post(
       existingUser.password,
       password
     );
-    console.log("isValidPassword", isValidPassword);
     if (!isValidPassword) {
       throw new BadRequestError("Please provide valid credentials");
     }
