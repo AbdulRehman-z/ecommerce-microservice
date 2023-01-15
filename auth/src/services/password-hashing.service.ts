@@ -8,6 +8,7 @@ export class Password {
 
   static genPasswordHash(password: string) {
     const salt = crypto.randomBytes(32).toString("hex");
+
     const genHash = crypto
       .pbkdf2Sync(password, salt, 10000, 64, "sha512")
       .toString("hex");
@@ -20,12 +21,13 @@ export class Password {
    * the decrypted hash/salt with the password that the user provided at login
    */
 
-  static validatePassowrd(password: string, storedPassword: string) {
+  static validatePassowrd(storedPassword: string, password: string) {
     const [hashedPassword, salt] = storedPassword.split(".");
+
     const hashVerify = crypto
-      .pbkdf2Sync(password, salt, 1000, 64, "sha256")
+      .pbkdf2Sync(password, salt, 10000, 64, "sha512")
       .toString("hex");
 
-    return hashedPassword === hashVerify;
+    return hashVerify === hashedPassword;
   }
 }

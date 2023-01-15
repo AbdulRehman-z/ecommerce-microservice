@@ -4,15 +4,24 @@ import "express-async-errors";
 import { connectDB } from "./services/mongo.service";
 
 import { signUpUserRouter } from "./routes/sign-up-user.route";
-import { signInUserRouter } from "./routes/signInUser.route";
-import { signOutUserRouter } from "./routes/signOutUser.route";
-import { currentUserRouter } from "./routes/currentUser.route";
-import { errorHandlerMiddleware } from "./middlewares/error-handler";
-import { RouteNotFoundError } from "./errors/route-not-found-error";
+import { signInUserRouter } from "./routes/sign-in-user.route";
+import { signOutUserRouter } from "./routes/sign-out-user.route";
+import { currentUserRouter } from "./routes/current-user.route";
+import { errorHandlerMiddleware } from "./middlewares/error-handler-middleware";
+import cookieSession from "cookie-session";
 
 /* configure express app */
 const app = express();
 app.use(express.json());
+
+/* cookie session */
+app.set("trust proxy", true); // trust first proxy
+app.use(
+  cookieSession({
+    signed: false, // disable encryption
+    secure: true, // only use cookies over https
+  })
+);
 
 /* auth routes */
 app.use(signUpUserRouter);
