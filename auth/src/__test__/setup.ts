@@ -7,7 +7,7 @@ beforeAll(async () => {
 
   mongo = await MongoMemoryServer.create();
   const mongoUri = await mongo.getUri();
-  // mongoose.set("strictQuery", true);
+  mongoose.set("strictQuery", true);
   await mongoose.connect(mongoUri);
 });
 

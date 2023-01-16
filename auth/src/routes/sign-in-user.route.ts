@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 
 router.post(
-  "/api/users/sign-in",
+  "/api/users/signin",
   body("email")
     .isEmail()
     .withMessage(
