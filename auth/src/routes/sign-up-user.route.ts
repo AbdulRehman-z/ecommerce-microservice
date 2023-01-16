@@ -8,7 +8,7 @@ import { validateRequest } from "../middlewares/validate-request-middleware";
 const router = express.Router();
 
 router.post(
-  "/api/users/sign-up",
+  "/api/users/signup",
   [
     body("email").isEmail().withMessage("Please provide a valid email"),
     body("password")

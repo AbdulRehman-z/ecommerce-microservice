@@ -1,5 +1,6 @@
 import express from "express";
 import "express-async-errors";
+import { connectDB } from "./services/mongo.service";
 
 import { signUpUserRouter } from "./routes/sign-up-user.route";
 import { signInUserRouter } from "./routes/sign-in-user.route";
