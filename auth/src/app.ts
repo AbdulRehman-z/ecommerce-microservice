@@ -18,7 +18,7 @@ app.set("trust proxy", true); // trust first proxy
 app.use(
   cookieSession({
     signed: false, // disable encryption
-    secure: true, // only use cookies over https
+    secure: process.env.NODE_ENV !== "test", // only use cookies over https
   })
 );
 
