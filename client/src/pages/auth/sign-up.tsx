@@ -35,10 +35,6 @@ const SignUp = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
@@ -58,7 +54,12 @@ const SignUp = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 4 }}>
+        <Box
+          component="form"
+          noValidate={false}
+          onSubmit={handleSubmit}
+          sx={{ mt: 4 }}
+        >
           <Grid container spacing={2.3}>
             <Grid item xs={12} sm={6}>
               <TextField
