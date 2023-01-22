@@ -11,8 +11,8 @@ export interface UserResponse {
 }
 
 export interface SignUpRequest {
-  email: string;
-  password: string;
+  email: FormDataEntryValue | null;
+  password: FormDataEntryValue | null;
 }
 
 const authApi = createApi({

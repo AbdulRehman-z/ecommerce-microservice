@@ -12,6 +12,7 @@ import LockPersonOutlinedIcon from "@mui/icons-material/LockPersonOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { theme } from "theme";
+import { useSignUpMutation } from "@/store/store";
 
 const Copyright = (props: any) => {
   return (
@@ -32,9 +33,16 @@ const Copyright = (props: any) => {
 };
 
 const SignUp = () => {
+  const [signupUser, signupUserResults] = useSignUpMutation();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    signupUser({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
   };
 
   return (
