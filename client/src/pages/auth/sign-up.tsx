@@ -1,6 +1,7 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+// import LoadingButton from "@mui/lab/LoadingButton";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -35,14 +36,16 @@ const Copyright = (props: any) => {
 const SignUp = () => {
   const [signupUser, signupUserResults] = useSignUpMutation();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    signupUser({
+    await signupUser({
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    console.log(signupUserResults.data);
   };
 
   return (
@@ -123,6 +126,7 @@ const SignUp = () => {
             </Grid>
           </Grid>
           <Button
+            // loading={signupUserResults.isLoading}
             type="submit"
             fullWidth
             variant="contained"

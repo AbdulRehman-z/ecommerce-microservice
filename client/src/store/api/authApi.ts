@@ -1,14 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
-interface User {
-  email: string;
-  id: string;
-}
+// interface User {
+//   email: string;
+//   id: string;
+// }
 
-export interface UserResponse {
-  email: string;
-  id: string;
-}
+// export interface UserResponse {
+//   email: string;
+//   id: string;
+// }
 
 export interface SignUpRequest {
   email: FormDataEntryValue | null;
@@ -17,13 +17,14 @@ export interface SignUpRequest {
 
 const authApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://tickting.dev/auth",
+    baseUrl: "https://ticketing.dev/api/users",
   }),
+  // tagTypes: ["User"],
   endpoints: (builder) => ({
-    signUp: builder.mutation<UserResponse, SignUpRequest>({
+    signUp: builder.mutation({
       query: (body) => ({
         method: "POST",
-        url: "/sign-up",
+        url: "/signup",
         body: {
           email: body.email,
           password: body.password,

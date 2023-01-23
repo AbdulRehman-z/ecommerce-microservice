@@ -38,4 +38,10 @@ app.use(currentUserRouter);
 /* error handling */
 app.use(errorHandlerMiddleware);
 
+/* start server */
+app.listen(3000, async () => {
+  await connectDB();
+  console.log("Listening on port 3000");
+});
+
 // "start":"ts-node-dev --poll src/index.ts"  // this is for ts-node-dev
