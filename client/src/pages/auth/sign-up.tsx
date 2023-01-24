@@ -1,7 +1,6 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-// import LoadingButton from "@mui/lab/LoadingButton";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -14,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { theme } from "theme";
 import { useSignUpMutation } from "@/store/store";
+import DescriptionAlert from "../alerts/alert";
+import Alert from "../alerts/alert";
 
 const Copyright = (props: any) => {
   return (
@@ -24,7 +25,7 @@ const Copyright = (props: any) => {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://ticketing.dev/">
+      <Link color="inherit" href="https://ticketing.dev">
         ticketing.dev
       </Link>{" "}
       {new Date().getFullYear()}
@@ -36,6 +37,12 @@ const Copyright = (props: any) => {
 const SignUp = () => {
   const [signupUser, signupUserResults] = useSignUpMutation();
 
+  if (signupUserResults.data) {
+    console.log("fullfiled", signupUserResults.data);
+  } else {
+    console.log("rejected", signupUserResults.error);
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,8 +51,6 @@ const SignUp = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
-
-    console.log(signupUserResults.data);
   };
 
   return (
@@ -71,10 +76,10 @@ const SignUp = () => {
           onSubmit={handleSubmit}
           sx={{ mt: 4 }}
         >
-          <Grid container spacing={2.3}>
+          <Grid container spacing={2.7}>
             <Grid item xs={12} sm={6}>
               <TextField
-                variant="filled"
+                variant="standard"
                 autoComplete="given-name"
                 name="firstName"
                 required
@@ -86,7 +91,7 @@ const SignUp = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                variant="filled"
+                variant="standard"
                 required
                 fullWidth
                 id="lastName"
@@ -97,7 +102,7 @@ const SignUp = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="filled"
+                variant="standard"
                 required
                 fullWidth
                 id="email"
@@ -108,7 +113,7 @@ const SignUp = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="filled"
+                variant="standard"
                 required
                 fullWidth
                 name="password"
@@ -134,6 +139,10 @@ const SignUp = () => {
           >
             Sign Up
           </Button>
+
+          {signupUserResults.isError && (
+            <Alert message={signupUserResults.error} severity="error" />
+          )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
