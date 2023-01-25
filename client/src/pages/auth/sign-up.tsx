@@ -1,4 +1,3 @@
-import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { theme } from "theme";
 import { useSignUpMutation } from "@/store/store";
-import DescriptionAlert from "../alerts/alert";
 import Alert from "../alerts/alert";
 
 const Copyright = (props: any) => {
