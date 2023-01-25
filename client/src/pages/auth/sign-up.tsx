@@ -137,7 +137,6 @@ const SignUp = () => {
           >
             Sign Up
           </Button>
-
           {signupUserResults.isError && (
             <Alert message={signupUserResults.error} severity="error" />
           )}

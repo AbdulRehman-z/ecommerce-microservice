@@ -2,6 +2,12 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { forwardRef, useState } from "react";
 
+interface error {
+  message: string;
+  field?: string;
+}
+[];
+
 const Alert = ({ severity, message }) => {
   const [open, setOpen] = useState(true);
 
@@ -26,7 +32,13 @@ const Alert = ({ severity, message }) => {
   return (
     <Snackbar open={open} autoHideDuration={9000} onClose={handleClose}>
       <Alert onClose={handleClose} severity={severity}>
-        {message}
+        {message.data.errors.map((msg: error) => {
+          return (
+            <span>
+              {msg.message} --- {msg.field}
+            </span>
+          );
+        })}
       </Alert>
     </Snackbar>
   );
