@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-
+import currentuserResponse from "./ingress-nginxApi";
 // interface User {
 //   email: string;
 //   id: string;
@@ -27,8 +27,15 @@ const authApi = createApi({
         body,
       }),
     }),
+    getCurrentUser: builder.query<UserResponse, void>({
+      query: () => ({
+        method: "GET",
+        url: "/currentuser",
+      }),
+    }),
   }),
 });
 
 export { authApi };
 export const { useSignUpMutation } = authApi;
+export const { useGetCurrentUserQuery } = authApi;
