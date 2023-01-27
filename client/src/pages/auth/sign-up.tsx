@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import { theme } from "theme";
 import { useSignUpMutation } from "@/store/store";
 import Alert from "../alerts/alert";
+import { Router, useRouter } from "next/router";
 
 const Copyright = (props: any) => {
   return (
@@ -34,13 +35,7 @@ const Copyright = (props: any) => {
 
 const SignUp = () => {
   const [signupUser, signupUserResults] = useSignUpMutation();
-
-  if (signupUserResults.data) {
-    console.log("fullfiled", signupUserResults.data);
-  } else {
-    console.log("rejected", signupUserResults.error);
-  }
-
+  const router = useRouter();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -137,9 +132,11 @@ const SignUp = () => {
           >
             Sign Up
           </Button>
-          {signupUserResults.isError && (
-            <Alert message={signupUserResults.error} severity="error" />
-          )}
+          {signupUserResults.isSuccess
+            ? router.push("/")
+            : signupUserResults.isError && (
+                <Alert message={signupUserResults.error} severity="error" />
+              )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="#" variant="body2">

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { HYDRATE } from "next-redux-wrapper";
 
 export interface currentuserResponse {
   currentUser: null | {
@@ -9,11 +10,7 @@ export interface currentuserResponse {
 
 const ingressNginxApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      "https://ingress-nginx-controller.ingress-nginx-controller.svc.cluster.local",
-    headers: {
-      HOST: "ticketing.dev",
-    },
+    baseUrl: "https://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
   }),
   endpoints: (builder) => ({
     ingressCurrentUser: builder.query<currentuserResponse, void>({

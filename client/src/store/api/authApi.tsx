@@ -27,7 +27,7 @@ const authApi = createApi({
         body,
       }),
     }),
-    getCurrentUser: builder.query<UserResponse, void>({
+    getCurrentUser: builder.query<currentuserResponse, void>({
       query: () => ({
         method: "GET",
         url: "/currentuser",

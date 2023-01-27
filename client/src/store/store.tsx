@@ -9,10 +9,9 @@ const store = configureStore({
     [ingressNginxApi.reducerPath]: ingressNginxApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
-      ingressNginxApi.middleware,
-      authApi.middleware
-    ),
+    getDefaultMiddleware()
+      .prepend(authApi.middleware)
+      .concat(ingressNginxApi.middleware),
 });
 
 setupListeners(store.dispatch);
