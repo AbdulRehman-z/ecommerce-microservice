@@ -1,16 +1,16 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default ({ currentUser }) => {
   const links = [
-    !currentUser && { label: 'Sign Up', href: '/auth/signup' },
-    !currentUser && { label: 'Sign In', href: '/auth/signin' },
-    currentUser && { label: 'Sign Out', href: '/auth/signout' }
+    !currentUser && { label: "Sign Up", href: "/auth/signup" },
+    !currentUser && { label: "Sign In", href: "/auth/signin" },
+    currentUser && { label: "Sign Out", href: "/auth/signout" },
   ]
-    .filter(linkConfig => linkConfig)
+    .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => {
       return (
         <li key={href} className="nav-item">
-          <Link href={href}>
+          <Link href={href} legacyBehavior={true}>
             <a className="nav-link">{label}</a>
           </Link>
         </li>
@@ -19,7 +19,7 @@ export default ({ currentUser }) => {
 
   return (
     <nav className="navbar navbar-light bg-light">
-      <Link href="/">
+      <Link href="/" legacyBehavior={true}>
         <a className="navbar-brand">GitTix</a>
       </Link>
 
