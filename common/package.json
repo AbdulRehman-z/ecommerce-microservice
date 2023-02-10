@@ -1,12 +1,17 @@
 {
-  "name": "common",
+  "name": "@abdulrehmanz/common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "del-cli ./build/*",
+    "build": "npm run clean && tsc"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "abdulrehmanz",
+  "license": "ISC",
+  "devDependencies": {
+    "del-cli": "^5.0.0",
+    "typescript": "^4.9.5"
+  }
 }
