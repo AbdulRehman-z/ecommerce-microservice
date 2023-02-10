@@ -1,7 +1,7 @@
 import { CustomError } from "./custom-error";
 
 export class RouteNotFoundError extends CustomError {
-  statusCode: 404;
+  public statusCode = 404;
 
   constructor() {
     super();
