@@ -10,6 +10,7 @@ declare global {
   namespace Express {
     interface Request {
       currentUser?: UserPayload;
+      session?: any;
     }
   }
 }
@@ -31,12 +32,12 @@ export const currentUserMiddleware = (
   try {
     const decodePayload = jwt.verify(
       req.session.jwt,
-      process.env.JWT_KEY
+      process.env.JWT_KEY!
     ) as UserPayload;
 
     req.currentUser = decodePayload;
   } catch (error) {
-    throw new Error(error);
+    throw new Error("Invalid JWT");
   }
 
   next();
