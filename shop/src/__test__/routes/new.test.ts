@@ -1,7 +1,11 @@
 import request from "supertest";
 import { app } from "../../app";
 
-it("route handler listening to /api/products for post requests", async () => {});
+it("route handler listening to /api/products for post requests", async () => {
+  const response = await request(app).post("/api/products").send({});
+
+  expect(response.status).not.toEqual(404);
+});
 it("can only be accessed if the user is signed in", async () => {});
 it("returns error if user provides invalid price of the product", async () => {});
 it("returns error if user provides invalid price of the product", async () => {});

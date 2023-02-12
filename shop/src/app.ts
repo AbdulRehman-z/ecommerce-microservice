@@ -1,6 +1,7 @@
 import express from "express";
 import "express-async-errors";
 import { connectDB } from "./services/mongo.service";
+import { createTicketRouter } from "./routes/create-ticket-route";
 
 import { errorHandlerMiddleware } from "@abdulrehmanz/common";
 import cookieSession from "cookie-session";
@@ -17,6 +18,9 @@ app.use(
     secure: process.env.NODE_ENV !== "test", // only use cookies over https
   })
 );
+
+/* routes */
+app.use(createTicketRouter);
 
 /* error handling */
 app.use(errorHandlerMiddleware);
