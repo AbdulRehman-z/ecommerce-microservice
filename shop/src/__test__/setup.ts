@@ -1,10 +1,6 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 
-declare global {
-  var signin: () => Promise<string[]>;
-}
-
 let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = "khan";

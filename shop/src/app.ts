@@ -2,10 +2,6 @@ import express from "express";
 import "express-async-errors";
 import { connectDB } from "./services/mongo.service";
 
-import { signUpUserRouter } from "./routes/sign-up-user.route";
-import { signInUserRouter } from "./routes/sign-in-user.route";
-import { signOutUserRouter } from "./routes/sign-out-user.route";
-import { currentUserRouter } from "./routes/current-user.route";
 import { errorHandlerMiddleware } from "@abdulrehmanz/common";
 import cookieSession from "cookie-session";
 
@@ -21,19 +17,6 @@ app.use(
     secure: process.env.NODE_ENV !== "test", // only use cookies over https
   })
 );
-
-/* auth routes */
-app.use(signUpUserRouter);
-app.use(signInUserRouter);
-app.use(signOutUserRouter);
-app.use(currentUserRouter);
-
-// app.all("*", async (req, res) => {
-//   try {
-//   } catch (_) {
-//     throw new RouteNotFoundError();
-//   }
-// });
 
 /* error handling */
 app.use(errorHandlerMiddleware);

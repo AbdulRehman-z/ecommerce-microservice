@@ -1,38 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-deployment
+  name: shop-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: shop
   template:
     metadata:
       labels:
-        app: auth
+        app: shop
     spec:
       containers:
-        - name: auth
-          image: abdulrehmanconq/auth
+        - name: shop
+          image: abdulrehmanconq/shop
           env:
             - name: MONGO_URI
-              value: "mongodb://auth-mongo-service:27017/auth"
+              value: "mongodb://shop-mongo-service:27017/shop"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-service
+  name: shop-service
 spec:
   selector:
-    app: auth
+    app: shop
   ports:
-    - name: auth
+    - name: shop
       protocol: TCP
       targetPort: 3000
       port: 3000
