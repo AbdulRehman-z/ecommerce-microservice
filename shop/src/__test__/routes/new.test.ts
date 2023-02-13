@@ -1,12 +1,41 @@
 import request from "supertest";
 import { app } from "../../app";
 
-it("route handler listening to /api/products for post requests", async () => {
+it("has a route handler listening to /api/products for post requests", async () => {
   const response = await request(app).post("/api/products").send({});
 
   expect(response.status).not.toEqual(404);
 });
-it("can only be accessed if the user is signed in", async () => {});
-it("returns error if user provides invalid price of the product", async () => {});
-it("returns error if user provides invalid price of the product", async () => {});
-it("creates a product with valid inputs", async () => {});
+
+it("can only be accessed if the user is signed in", async () => {
+  await request(app).post("/api/products").send({}).expect(401);
+});
+
+it("returns a status other than 401 if the user is signed in", async () => {
+  const response = await request(app).post("/api/products").send({});
+
+  expect(response.status).not.toEqual(401);
+});
+
+it("returns an error if an invalid title is provided", async () => {
+  await request(app)
+    .post("/api/products")
+    .set("Cookie", global.signin())
+    .send({
+      title: "Red t-shirt",
+      price: -90,
+    })
+    .expect(400);
+
+  await request(app)
+    .post("/api/products")
+    .set("Cookie", global.signin())
+    .send({
+      price: -20,
+    })
+    .expect(400);
+});
+
+it("returns an error if an invalid price is provided", async () => {});
+
+it("creates a ticket with valid inputs", async () => {});
