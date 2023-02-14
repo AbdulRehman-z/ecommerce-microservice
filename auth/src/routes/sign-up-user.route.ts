@@ -46,7 +46,6 @@ router.post(
     };
 
     res.status(201).send(newUser);
-    // throw new RequestDatabaseConnectionError();
   }
 );
 
