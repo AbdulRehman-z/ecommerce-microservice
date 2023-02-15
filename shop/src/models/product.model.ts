@@ -10,7 +10,6 @@ interface ProductDoc extends mongoose.Document {
   title: string;
   price: number;
   userId: string;
-  createdAt: string;
 }
 
 interface ProductModel extends mongoose.Model<ProductDoc> {
@@ -29,6 +28,7 @@ const productSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
+      required: true,
     },
   },
   {
@@ -46,7 +46,9 @@ productSchema.statics.build = (attrs: ProductAttrs) => {
   return new Product(attrs);
 };
 
-const Product = mongoose.model<ProductDoc, ProductModel>(
+export const Product = mongoose.model<ProductDoc, ProductModel>(
   "Product",
   productSchema
 );
+
+export { Product as products };
