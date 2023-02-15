@@ -17,6 +17,13 @@ spec:
                 name: auth-service
                 port:
                   number: 3000
+          - path: /api/products?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: shop-service
+                port:
+                  number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:
