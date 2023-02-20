@@ -29,3 +29,5 @@ router.put(
     return res.status(200).send(product);
   }
 );
+
+export { router as updateProductRouter };

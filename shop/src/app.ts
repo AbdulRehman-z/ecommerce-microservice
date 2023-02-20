@@ -9,6 +9,7 @@ import {
 } from "@abdulrehmanz/common";
 import cookieSession from "cookie-session";
 import { getAllProductsRouter } from "./routes/getAll-products-route";
+import { updateProductRouter } from "./routes/update-product-route";
 
 /* configure express app */
 export const app = express();
@@ -28,6 +29,7 @@ app.use(currentUserMiddleware);
 app.use(createProductRouter);
 app.use(getAllProductsRouter);
 app.use(getSingleProductRouter);
+app.use(updateProductRouter);
 /* error handling */
 app.use(errorHandlerMiddleware);
 
