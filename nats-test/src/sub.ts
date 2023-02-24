@@ -1,6 +1,6 @@
 import nats, { Message, Stan } from "node-nats-streaming";
 import { randomBytes } from "crypto";
-import { ProductCreatedListener } from "./events/product-created-listner";
+import { ProductCreatedListener } from "./events/product-created-sub";
 
 console.clear();
 

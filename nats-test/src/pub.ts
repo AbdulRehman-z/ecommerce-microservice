@@ -1,4 +1,5 @@
 import nats from "node-nats-streaming";
+import { ProductCreatedPublisher } from "./events/product-created-pub.ts";
 
 console.clear();
 
@@ -15,7 +16,5 @@ stan.on("connect", () => {
     price: 20,
   });
 
-  stan.publish("product:created", data, () => {
-    console.log("Event published");
-  });
+  new ProductCreatedPublisher(stan).publish(data);
 });
