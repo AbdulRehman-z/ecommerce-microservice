@@ -1,5 +1,5 @@
 import nats from "node-nats-streaming";
-import { Message } from "node-nats-streaming";
+import { Message, Stan } from "node-nats-streaming";
 import { randomBytes } from "crypto";
 
 console.clear();
@@ -43,3 +43,49 @@ stan.on("connect", () => {
 // close the connection when the process is terminated
 process.on("SIGINT", () => stan.close());
 process.on("SIGTERM", () => stan.close());
+
+abstract class Listner {
+  abstract subject: string;
+  abstract queueGroupName: string;
+  abstract onMessage(data: any, msg: Message): void;
+  private client: Stan;
+  protected ackWait = 1000 * 5;
+  constructor(client: Stan) {
+    this.client = client;
+  }
+
+  subscriptionOptions() {
+    return this.client
+      .subscriptionOptions()
+      .setDeliverAllAvailable()
+      .setManualAckMode(true)
+      .setAckWait(this.ackWait)
+      .setDurableName("order-service");
+  }
+
+  listen() {
+    const subscription = this.client.subscribe(
+      "product:created",
+      "queue-group-order-service",
+      this.subscriptionOptions()
+    );
+
+    subscription.on("message", (msg: Message) => {
+      console.log(`Event #${msg.getSequence()}\n. Payload: ${this.subject}`);
+      console.log(
+        "---------------------------------------------------------------------"
+      );
+
+      const parsedData = this.parseMessage(msg);
+
+      return this.onMessage(parsedData, msg);
+    });
+  }
+
+  parseMessage(msg: Message) {
+    const data = msg.getData();
+    return typeof data === "string"
+      ? JSON.parse(data)
+      : JSON.parse(data.toString());
+  }
+}
