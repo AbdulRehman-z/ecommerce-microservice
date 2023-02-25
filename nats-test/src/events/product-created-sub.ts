@@ -1,4 +1,4 @@
-import { Listener } from "./base-listner";
+import { Listener } from "./base-sub";
 import { Message } from "node-nats-streaming";
 import { ProductCreatedEvent } from "./product-created-event";
 import { Subjects } from "./subjects";

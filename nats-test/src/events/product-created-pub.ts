@@ -1,4 +1,4 @@
-import { Publisher } from "./base-publisher";
+import { Publisher } from "./base-pub";
 import { Subjects } from "./subjects";
 import { ProductCreatedEvent } from "./product-created-event";
 
