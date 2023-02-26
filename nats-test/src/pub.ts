@@ -14,6 +14,7 @@ stan.on("connect", async () => {
     id: "123",
     title: "concert",
     price: 20,
+    userId: "1",
   };
 
   const publisher = new ProductCreatedPublisher(stan);

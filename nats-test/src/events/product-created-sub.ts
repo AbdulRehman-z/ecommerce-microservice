@@ -1,7 +1,7 @@
-import { Listener } from "./base-sub";
 import { Message } from "node-nats-streaming";
-import { ProductCreatedEvent } from "./product-created-event";
-import { Subjects } from "./subjects";
+import { Subjects } from "../../../common/src/events/subjects";
+import { ProductCreatedEvent } from "@abdulrehmanz/common";
+import { Listener } from "../../../common/src/events/base-sub";
 
 class ProductCreatedListener extends Listener<ProductCreatedEvent> {
   readonly subject = Subjects.ProductCreated;

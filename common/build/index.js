@@ -26,3 +26,9 @@ __exportStar(require("./middlewares/current-user-middleware"), exports);
 __exportStar(require("./middlewares/error-handler-middleware"), exports);
 __exportStar(require("./middlewares/require-auth-middleware"), exports);
 __exportStar(require("./middlewares/validate-request-middleware"), exports);
+// events
+__exportStar(require("./events/base-pub"), exports);
+__exportStar(require("./events/base-sub"), exports);
+__exportStar(require("./events/subjects"), exports);
+__exportStar(require("./events/product-created-event"), exports);
+__exportStar(require("./events/product-updated-event"), exports);
