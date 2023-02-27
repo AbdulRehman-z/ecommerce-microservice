@@ -1,7 +1,9 @@
 import { requireAuthMiddleware, validateRequest } from "@abdulrehmanz/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import { ProductCreatedPublisher } from "../events/pub/product-created-pub";
 import { Product } from "../models/product.model";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -24,6 +26,12 @@ router.post(
       userId: req.currentUser!.id,
     });
     product.save();
+    new ProductCreatedPublisher(natsWrapper.client).publish({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      userId: product.userId,
+    });
     return res.sendStatus(201).json(product);
   }
 );

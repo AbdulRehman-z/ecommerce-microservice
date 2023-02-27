@@ -10,6 +10,7 @@ import {
 import cookieSession from "cookie-session";
 import { getAllProductsRouter } from "./routes/getAll-products-route";
 import { updateProductRouter } from "./routes/update-product-route";
+import { natsWrapper } from "./nats-wrapper";
 
 /* configure express app */
 export const app = express();
@@ -35,6 +36,15 @@ app.use(errorHandlerMiddleware);
 
 /* start server */
 app.listen(3000, async () => {
+  await natsWrapper.connect("ticketing", "abc", "http://nats-service:4222");
+  natsWrapper.client.on("close", () => {
+    process.exit();
+  });
+
+  process.on("SIGINT", () => natsWrapper.client.close());
+
+  process.on("SIGTERM", () => natsWrapper.client.close());
+
   await connectDB();
   console.log("Listening on port 3000");
 });
