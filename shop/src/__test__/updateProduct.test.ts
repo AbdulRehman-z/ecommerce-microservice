@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 it("returns a 404 if the provided id does not exist", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
   await request(app)
-    .put(`/api/tickets/${id}`)
+    .put(`/api/products/${id}`)
     .set("Cookie", await global.signin())
     .send({
       title: "aslkdfj",
@@ -17,7 +17,7 @@ it("returns a 404 if the provided id does not exist", async () => {
 it("returns a 401 if the user is not authenticated", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
   await request(app)
-    .put(`/api/tickets/${id}`)
+    .put(`/api/products/${id}`)
     .send({
       title: "aslkdfj",
       price: 20,
@@ -27,7 +27,7 @@ it("returns a 401 if the user is not authenticated", async () => {
 
 it("returns a 401 if the user does not own the ticket", async () => {
   const response = await request(app)
-    .post("/api/tickets")
+    .post("/api/products")
     .set("Cookie", await global.signin())
     .send({
       title: "asldkfj",
@@ -35,7 +35,7 @@ it("returns a 401 if the user does not own the ticket", async () => {
     });
 
   await request(app)
-    .put(`/api/tickets/${response.body.id}`)
+    .put(`/api/products/${response.body.id}`)
     .set("Cookie", await global.signin())
     .send({
       title: "alskdjflskjdf",
@@ -48,7 +48,7 @@ it("returns a 400 if the user provides an invalid title or price", async () => {
   const cookie = await global.signin();
 
   const response = await request(app)
-    .post("/api/tickets")
+    .post("/api/products")
     .set("Cookie", cookie)
     .send({
       title: "asldkfj",
@@ -56,7 +56,7 @@ it("returns a 400 if the user provides an invalid title or price", async () => {
     });
 
   await request(app)
-    .put(`/api/tickets/${response.body.id}`)
+    .put(`/api/products/${response.body.id}`)
     .set("Cookie", cookie)
     .send({
       title: "",
@@ -65,7 +65,7 @@ it("returns a 400 if the user provides an invalid title or price", async () => {
     .expect(400);
 
   await request(app)
-    .put(`/api/tickets/${response.body.id}`)
+    .put(`/api/products/${response.body.id}`)
     .set("Cookie", cookie)
     .send({
       title: "alskdfjj",
@@ -78,7 +78,7 @@ it("updates the ticket provided valid inputs", async () => {
   const cookie = await global.signin();
 
   const response = await request(app)
-    .post("/api/tickets")
+    .post("/api/products")
     .set("Cookie", cookie)
     .send({
       title: "asldkfj",
@@ -86,7 +86,7 @@ it("updates the ticket provided valid inputs", async () => {
     });
 
   await request(app)
-    .put(`/api/tickets/${response.body.id}`)
+    .put(`/api/products/${response.body.id}`)
     .set("Cookie", cookie)
     .send({
       title: "new title",
@@ -95,7 +95,7 @@ it("updates the ticket provided valid inputs", async () => {
     .expect(200);
 
   const ticketResponse = await request(app)
-    .get(`/api/tickets/${response.body.id}`)
+    .get(`/api/products/${response.body.id}`)
     .send();
 
   expect(ticketResponse.body.title).toEqual("new title");

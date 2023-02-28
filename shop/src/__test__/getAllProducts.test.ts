@@ -3,7 +3,7 @@ import { app } from "../app";
 
 const createTicket = async () => {
   return request(app)
-    .post("/api/tickets")
+    .post("/api/products")
     .set("Cookie", await global.signin())
     .send({
       title: "asldkf",
@@ -11,12 +11,12 @@ const createTicket = async () => {
     });
 };
 
-it("can fetch a list of tickets", async () => {
+it("can fetch a list of products", async () => {
   await createTicket();
   await createTicket();
   await createTicket();
 
-  const response = await request(app).get("/api/tickets").send().expect(200);
+  const response = await request(app).get("/api/products").send().expect(200);
 
   expect(response.body.length).toEqual(3);
 });

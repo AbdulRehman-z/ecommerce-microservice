@@ -12,8 +12,8 @@ beforeAll(async () => {
   process.env.JWT_KEY = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-  mongo = new MongoMemoryServer();
-  const mongoUri = await mongo.getUri();
+  mongo = await MongoMemoryServer.create();
+  const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri);
 });
@@ -51,5 +51,5 @@ global.signin = async () => {
   const base64 = Buffer.from(sessionJSON).toString("base64");
 
   // return a string thats the cookie with the encoded data
-  return [`express:sess=${base64}`];
+  return [`session=${base64}`];
 };
