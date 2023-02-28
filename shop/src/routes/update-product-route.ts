@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
 import { products } from "../models/product.model";
 import { BadRequestError, requireAuthMiddleware } from "@abdulrehmanz/common";
+import { ProductUpdatedPublisher } from "../events/pub/product-updated-pub";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -26,6 +28,12 @@ router.put(
       price: req.body.price,
     });
     product.save();
+    await new ProductUpdatedPublisher(natsWrapper.client).publish({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      userId: product.userId,
+    });
     return res.status(200).send(product);
   }
 );

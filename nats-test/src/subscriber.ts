@@ -1,6 +1,6 @@
-import nats, { Message, Stan } from "node-nats-streaming";
+import nats from "node-nats-streaming";
 import { randomBytes } from "crypto";
-import { ProductCreatedListener } from "./events/product-created-sub";
+import { TicketCreatedListener } from "./events/product-created-listener";
 
 console.clear();
 
@@ -16,7 +16,7 @@ stan.on("connect", () => {
     process.exit();
   });
 
-  new ProductCreatedListener(stan).listen();
+  new TicketCreatedListener(stan).listen();
 });
 
 process.on("SIGINT", () => stan.close());

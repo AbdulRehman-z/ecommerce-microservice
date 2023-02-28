@@ -34,19 +34,4 @@ app.use(updateProductRouter);
 /* error handling */
 app.use(errorHandlerMiddleware);
 
-/* start server */
-app.listen(3000, async () => {
-  await natsWrapper.connect("ticketing", "abc", "http://nats-service:4222");
-  natsWrapper.client.on("close", () => {
-    process.exit();
-  });
-
-  process.on("SIGINT", () => natsWrapper.client.close());
-
-  process.on("SIGTERM", () => natsWrapper.client.close());
-
-  await connectDB();
-  console.log("Listening on port 3000");
-});
-
 // "start":"ts-node-dev --poll src/index.ts"  // this is for ts-node-dev
