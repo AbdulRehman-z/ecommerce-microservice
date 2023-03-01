@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import { app } from "../app";
 import jwt from "jsonwebtoken";
 
+jest.mock("../__mocks__/nats-wrapper");
+jest.setTimeout(70000);
+
 declare global {
   var signin: () => Promise<string[]>;
 }
