@@ -16,6 +16,14 @@ spec:
         - name: shop
           image: abdulrehmanconq/shop
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-service:4222"
+            - name: NATS_CLUSTER_ID
+              value: shoping
             - name: MONGO_URI
               value: "mongodb://shop-mongo-service:27017/shop"
             - name: JWT_KEY
