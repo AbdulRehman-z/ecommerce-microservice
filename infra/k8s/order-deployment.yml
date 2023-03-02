@@ -23,7 +23,7 @@ spec:
             - name: NATS_URL
               value: "http://nats-service:4222"
             - name: NATS_CLUSTER_ID
-              value: ordering
+              value: shoping
             - name: MONGO_URI
               value: "mongodb://order-mongo-service:27017/order"
             - name: JWT_KEY
