@@ -1,16 +1,13 @@
 import express from "express";
-import { connectDB } from "./services/mongo.service";
-import { createProductRouter } from "./routes/create-product-route";
-import { getSingleProductRouter } from "./routes/getSingle-product-route";
-
 import {
   currentUserMiddleware,
   errorHandlerMiddleware,
 } from "@abdulrehmanz/common";
 import cookieSession from "cookie-session";
-import { getAllProductsRouter } from "./routes/getAll-products-route";
-import { updateProductRouter } from "./routes/update-product-route";
-import { natsWrapper } from "./nats-wrapper";
+import { getAllOrdersRouter } from "./routes/getAll-order-route";
+import { createOrderRouter } from "./routes/create-order-route";
+import { deleteOrderRouter } from "./routes/delete-order-route";
+import { getOneOrderRouter } from "./routes/getOne-order-route";
 
 /* configure express app */
 export const app = express();
@@ -27,10 +24,10 @@ app.use(
 app.use(currentUserMiddleware);
 
 /* routes */
-app.use(createProductRouter);
-app.use(getAllProductsRouter);
-app.use(getSingleProductRouter);
-app.use(updateProductRouter);
+app.use(getAllOrdersRouter);
+app.use(createOrderRouter);
+app.use(deleteOrderRouter);
+app.use(getOneOrderRouter);
 /* error handling */
 app.use(errorHandlerMiddleware);
 

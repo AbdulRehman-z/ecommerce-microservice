@@ -32,8 +32,8 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: abdulrehmanconq/orders
-      context: shop
+    - image: abdulrehmanconq/order
+      context: order
       docker:
         dockerfile: Dockerfile
       sync:
