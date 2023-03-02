@@ -14,6 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OrderStatus = void 0;
 // Description: This file is used to export all the files in the common folder
 __exportStar(require("./errors/bad-request-error"), exports);
 __exportStar(require("./errors/custom-error"), exports);
@@ -32,3 +33,5 @@ __exportStar(require("./events/base-sub"), exports);
 __exportStar(require("./events/subjects"), exports);
 __exportStar(require("./events/product-created-event"), exports);
 __exportStar(require("./events/product-updated-event"), exports);
+var order_status_1 = require("./events/types/order-status");
+Object.defineProperty(exports, "OrderStatus", { enumerable: true, get: function () { return order_status_1.OrderStatus; } });
