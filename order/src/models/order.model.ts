@@ -1,22 +1,23 @@
 import mongoose from "mongoose";
 import { OrderStatus } from "@abdulrehmanz/common";
+import { ProductDoc } from "./product.model";
 
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
-  ticket: Product;
+  product: ProductDoc;
 }
 
-interface ProductDoc extends mongoose.Document {
+interface OrderDoc extends mongoose.Document {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
-  ticket: Product;
+  product: ProductDoc;
 }
 
-interface ProductModel extends mongoose.Model<ProductDoc> {
-  build(attrs: OrderAttrs): ProductDoc;
+interface OrderModel extends mongoose.Model<OrderDoc> {
+  build(attrs: OrderAttrs): OrderDoc;
 }
 
 const orderSchema = new mongoose.Schema(
@@ -34,7 +35,7 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    ticket: {
+    product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
     },
@@ -54,7 +55,4 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs);
 };
 
-export const Order = mongoose.model<ProductDoc, ProductModel>(
-  "Order",
-  orderSchema
-);
+export const Order = mongoose.model<OrderDoc, OrderModel>("Order", orderSchema);
