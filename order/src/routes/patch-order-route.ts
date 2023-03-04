@@ -7,7 +7,9 @@ import {
 } from "@abdulrehmanz/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import { OrderCancelLedPublisher } from "../events/pub/order-cancelled-pub";
 import { Order } from "../models/order.model";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -17,7 +19,7 @@ router.patch(
   [body("orderId").not().isEmpty().withMessage("orderId is required")],
   validateRequest,
   async (req: Request, res: Response) => {
-    const order = await Order.findById(req.params.orderId);
+    const order = await Order.findById(req.params.orderId).populate("product");
 
     if (!order) {
       throw new BadRequestError("Order not found");
@@ -28,6 +30,13 @@ router.patch(
     }
     order.status = OrderStatus.Cancelled;
     order.save();
+
+    await new OrderCancelLedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      product: {
+        id: order.product.id,
+      },
+    });
 
     return res.status(200).send(order);
   }

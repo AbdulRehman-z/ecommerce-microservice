@@ -8,6 +8,8 @@ import { body } from "express-validator";
 import { Product } from "../models/product.model";
 import { Order } from "../models/order.model";
 import { OrderStatus } from "@abdulrehmanz/common";
+import { natsWrapper } from "../nats-wrapper";
+import { OrderCreatedPublisher } from "../events/pub/order-created-pub";
 
 const router = express.Router();
 
@@ -42,6 +44,17 @@ router.post(
       product,
     });
     await order.save();
+
+    await new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      status: order.status,
+      userId: order.userId,
+      expiresAt: order.expiresAt.toISOString(),
+      product: {
+        id: product.id,
+        price: product.price,
+      },
+    });
 
     return res.status(201).send(order);
   }

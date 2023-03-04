@@ -4,6 +4,7 @@ import { app } from "../app";
 import { Order } from "../models/order.model";
 import { OrderStatus } from "@abdulrehmanz/common";
 import { Product } from "../models/product.model";
+import { natsWrapper } from "../nats-wrapper";
 
 it("returns an error if the product does not exist", async () => {
   const ticketId = new mongoose.Types.ObjectId();
@@ -48,4 +49,20 @@ it("reserves a product", async () => {
     .set("Cookie", await global.signin())
     .send({ ticketId: product.id })
     .expect(201);
+});
+
+it("emits an order created event", async () => {
+  const product = Product.build({
+    title: "concert",
+    price: 20,
+  });
+  await product.save();
+
+  await request(app)
+    .post("/api/orders")
+    .set("Cookie", await global.signin())
+    .send({ ticketId: product.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
