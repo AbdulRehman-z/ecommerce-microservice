@@ -6,7 +6,7 @@ import {
 import cookieSession from "cookie-session";
 import { getAllOrdersRouter } from "./routes/getAll-order-route";
 import { createOrderRouter } from "./routes/create-order-route";
-import { deleteOrderRouter } from "./routes/delete-order-route";
+import { deleteOrderRouter } from "./routes/patch-order-route";
 import { getOneOrderRouter } from "./routes/getOne-order-route";
 
 /* configure express app */
