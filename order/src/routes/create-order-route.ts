@@ -1,6 +1,11 @@
 import express, { Request, Response } from "express";
-import { requireAuthMiddleware, validateRequest } from "@abdulrehmanz/common";
+import {
+  BadRequestError,
+  requireAuthMiddleware,
+  validateRequest,
+} from "@abdulrehmanz/common";
 import { body } from "express-validator";
+import { Product } from "../models/product.model";
 
 const router = express.Router();
 
@@ -10,7 +15,17 @@ router.post(
   [body("productId").not().isEmpty().withMessage("Product Id is required")],
   validateRequest,
   async (req: Request, res: Response) => {
-    res.send({ message: "Hi there" });
+    // check if product exists
+    const product = await Product.findById(req.body.productId);
+    if (!product) {
+      throw new BadRequestError("Product not found");
+    }
+
+    // check if product is not already reserved by anyone
+    const isReserved = await product.isReserved();
+    if (isReserved) {
+      throw new BadRequestError("Product is already reserved");
+    }
   }
 );
 

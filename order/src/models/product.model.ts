@@ -1,3 +1,4 @@
+import { OrderStatus } from "@abdulrehmanz/common";
 import mongoose from "mongoose";
 
 interface ProductAttrs {
@@ -8,6 +9,7 @@ interface ProductAttrs {
 export interface ProductDoc extends mongoose.Document {
   price: number;
   title: string;
+  isReserved(): Promise<boolean>;
 }
 
 interface ProductModal extends mongoose.Model<ProductDoc> {
@@ -39,6 +41,21 @@ const productSchema = new mongoose.Schema(
 
 productSchema.statics.build = (attrs: ProductAttrs) => {
   return new Product(attrs);
+};
+
+productSchema.methods.isReserved = async function () {
+  const existingOrder = await Product.findOne({
+    product: this,
+    status: {
+      $in: [
+        OrderStatus.Created,
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Complete,
+      ],
+    },
+  });
+
+  return !!existingOrder;
 };
 
 export const Product = mongoose.model<ProductDoc, ProductModal>(
