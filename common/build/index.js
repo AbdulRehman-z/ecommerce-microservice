@@ -35,3 +35,5 @@ __exportStar(require("./events/product-created-event"), exports);
 __exportStar(require("./events/product-updated-event"), exports);
 var order_status_1 = require("./events/types/order-status");
 Object.defineProperty(exports, "OrderStatus", { enumerable: true, get: function () { return order_status_1.OrderStatus; } });
+__exportStar(require("./events/order-created-event"), exports);
+__exportStar(require("./events/order-cancelled-event"), exports);

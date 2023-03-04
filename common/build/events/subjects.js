@@ -5,4 +5,6 @@ var Subjects;
 (function (Subjects) {
     Subjects["ProductCreated"] = "product:created";
     Subjects["ProductUpdated"] = "product:updated";
+    Subjects["OrderCreated"] = "order:created";
+    Subjects["OrderCancelled"] = "order:cancelled";
 })(Subjects = exports.Subjects || (exports.Subjects = {}));
