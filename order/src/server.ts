@@ -1,6 +1,8 @@
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
 import { connectDB } from "./services/mongo.service";
+import { ProductCreatedSubscriber } from "./events/sub/product-created-sub";
+import { ProductUpdatedSubscriber } from "./events/sub/product-updated-sub";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -32,6 +34,9 @@ const start = async () => {
     });
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
+
+    new ProductCreatedSubscriber(natsWrapper.client).listen();
+    new ProductUpdatedSubscriber(natsWrapper.client).listen();
 
     await connectDB();
   } catch (err) {
