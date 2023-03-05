@@ -4,7 +4,7 @@ interface Event {
     subject: Subjects;
     data: any;
 }
-declare abstract class Listener<T extends Event> {
+declare abstract class Subscriber<T extends Event> {
     abstract subject: T["subject"];
     abstract queueGroupName: string;
     abstract onMessage(data: T["data"], msg: Message): void;
@@ -15,4 +15,4 @@ declare abstract class Listener<T extends Event> {
     listen(): void;
     parseMessage(msg: Message): any;
 }
-export { Listener };
+export { Subscriber };

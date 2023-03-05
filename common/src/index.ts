@@ -18,6 +18,6 @@ export * from "./events/base-sub";
 export * from "./events/subjects";
 export * from "./events/product-created-event";
 export * from "./events/product-updated-event";
-export { OrderStatus } from "./events/types/order-status";
+export * from "./events/types/order-status";
 export * from "./events/order-created-event";
 export * from "./events/order-cancelled-event";

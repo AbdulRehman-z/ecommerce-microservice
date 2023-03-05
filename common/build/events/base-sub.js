@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Listener = void 0;
-class Listener {
+exports.Subscriber = void 0;
+class Subscriber {
     constructor(client) {
         this.ackWait = 5 * 1000;
         this.client = client;
@@ -29,4 +29,4 @@ class Listener {
             : JSON.parse(data.toString("utf-8"));
     }
 }
-exports.Listener = Listener;
+exports.Subscriber = Subscriber;
