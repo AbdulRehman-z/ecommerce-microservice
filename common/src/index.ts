@@ -1,5 +1,3 @@
-import { OrderStatus } from "./events/types/order-status";
-
 // Description: This file is used to export all the files in the common folder
 export * from "./errors/bad-request-error";
 export * from "./errors/custom-error";
