@@ -1,8 +1,12 @@
-import { Listener, ProductCreatedEvent, Subjects } from "@abdulrehmanz/common";
+import {
+  Subscriber,
+  ProductCreatedEvent,
+  Subjects,
+} from "@abdulrehmanz/common";
 import { Message } from "node-nats-streaming";
 import { Product } from "../../models/product.model";
 
-export class ProductCreatedSubscriber extends Listener<ProductCreatedEvent> {
+export class ProductCreatedSubscriber extends Subscriber<ProductCreatedEvent> {
   readonly subject = Subjects.ProductCreated;
   queueGroupName = "orders-service";
 

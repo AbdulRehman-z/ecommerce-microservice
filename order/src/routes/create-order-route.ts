@@ -22,6 +22,7 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     // check if product exists
+    console.log("Product id: ", req.body.productId);
     const product = await Product.findById(req.body.productId);
     if (!product) {
       throw new BadRequestError("Product not found");
@@ -37,7 +38,7 @@ router.post(
     expiration.setSeconds(expiration.getSeconds() + ORDER_EXPIRATION_MINUTES);
 
     // create order
-    const order = await Order.build({
+    const order = Order.build({
       userId: req.currentUser!.id,
       status: OrderStatus.Created,
       expiresAt: expiration,

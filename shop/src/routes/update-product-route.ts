@@ -27,7 +27,7 @@ router.put(
       title: req.body.title,
       price: req.body.price,
     });
-    product.save();
+    await product.save();
     await new ProductUpdatedPublisher(natsWrapper.client).publish({
       id: product.id,
       title: product.title,
