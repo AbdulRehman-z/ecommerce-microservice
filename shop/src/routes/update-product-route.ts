@@ -33,6 +33,7 @@ router.put(
       title: product.title,
       price: product.price,
       userId: product.userId,
+      version: product.version,
     });
     return res.status(200).send(product);
   }

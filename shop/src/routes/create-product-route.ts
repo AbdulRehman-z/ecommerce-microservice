@@ -30,6 +30,7 @@ router.post(
       title: product.title,
       price: product.price,
       userId: product.userId,
+      version: product.version,
     });
     return res.status(201).json(product);
   }

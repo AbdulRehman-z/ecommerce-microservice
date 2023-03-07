@@ -12,12 +12,13 @@ export class ProductCreatedSubscriber extends Subscriber<ProductCreatedEvent> {
 
   async onMessage(data: ProductCreatedEvent["data"], msg: Message) {
     console.log("Data: ", data);
-    const { id, title, price } = data;
+    const { id, title, price, version } = data;
 
     const product = Product.build({
       id,
       title,
       price,
+      version,
     });
     await product.save();
 

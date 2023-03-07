@@ -11,13 +11,17 @@ export class ProductUpdatedSubscriber extends Subscriber<ProductUpdatedEvent> {
   queueGroupName = "orders-service";
 
   async onMessage(data: ProductUpdatedEvent["data"], msg: Message) {
-    const product = await Product.findById(data);
+    const product = await Product.findOne({
+      _id: data.id,
+      version: data.version - 1,
+    });
 
     if (!product) {
       throw new Error("Product not found");
     }
 
     const { title, price } = data;
+
     product.set({ title, price });
     await product.save();
 
