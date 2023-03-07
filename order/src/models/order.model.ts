@@ -32,7 +32,7 @@ const orderSchema = new mongoose.Schema(
       enum: Object.values(OrderStatus),
     },
     expiresAt: {
-      type: Date,
+      type: mongoose.Schema.Types.Date,
       required: true,
     },
     product: {

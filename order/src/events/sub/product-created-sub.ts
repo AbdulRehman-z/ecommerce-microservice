@@ -11,6 +11,7 @@ export class ProductCreatedSubscriber extends Subscriber<ProductCreatedEvent> {
   queueGroupName = "orders-service";
 
   async onMessage(data: ProductCreatedEvent["data"], msg: Message) {
+    console.log("Data: ", data);
     const { id, title, price } = data;
 
     const product = Product.build({

@@ -18,7 +18,6 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    console.log("req.currentUser", req.currentUser);
     const { title, price } = req.body;
     const product = Product.build({
       title,
