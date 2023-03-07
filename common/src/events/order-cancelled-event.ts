@@ -5,7 +5,6 @@ interface OrderCancelledEvent {
   data: {
     id: string;
     version: number;
-
     product: {
       id: string;
     };
