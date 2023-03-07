@@ -6,6 +6,7 @@ interface OrderCreatedEvent {
     id: string;
     status: string;
     userId: string;
+    version: number;
     expiresAt: string;
     product: {
       id: string;
