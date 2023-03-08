@@ -18,6 +18,10 @@ export interface ProductDoc extends mongoose.Document {
 
 interface ProductModal extends mongoose.Model<ProductDoc> {
   build(attrs: ProductAttrs): ProductDoc;
+  findByIdAndPrevVersion(event: {
+    id: string;
+    version: number;
+  }): Promise<ProductDoc | null>;
 }
 
 const productSchema = new mongoose.Schema(
@@ -52,6 +56,18 @@ productSchema.statics.build = (attrs: ProductAttrs) => {
     price: attrs.price,
     title: attrs.title,
   });
+};
+
+productSchema.statics.build = async (event: {
+  id: string;
+  version: number;
+}) => {
+  try {
+    const product = await Product.findOne(event);
+    return product;
+  } catch (error) {
+    throw error;
+  }
 };
 
 productSchema.methods.isReserved = async function () {
