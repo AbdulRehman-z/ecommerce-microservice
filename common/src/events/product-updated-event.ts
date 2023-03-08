@@ -8,5 +8,6 @@ export interface ProductUpdatedEvent {
     price: number;
     version: number;
     userId: string;
+    orderId?: string;
   };
 }
