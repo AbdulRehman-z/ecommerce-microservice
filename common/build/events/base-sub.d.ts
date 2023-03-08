@@ -9,7 +9,7 @@ declare abstract class Subscriber<T extends Event> {
     abstract queueGroupName: string;
     abstract onMessage(data: T["data"], msg: Message): void;
     protected ackWait: number;
-    private client;
+    protected client: Stan;
     constructor(client: Stan);
     subscriptionOptions(): import("node-nats-streaming").SubscriptionOptions;
     listen(): void;
