@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "@abdulrehmanz/common": "^1.0.10",
+    "@types/bull": "^4.10.0",
+    "bull": "^4.10.4",
     "node-nats-streaming": "latest",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.4"
