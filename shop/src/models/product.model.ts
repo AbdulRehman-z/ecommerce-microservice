@@ -55,9 +55,9 @@ productSchema.statics.build = (attrs: ProductAttrs) => {
   return new Product(attrs);
 };
 
-export const Product = mongoose.model<ProductDoc, ProductModel>(
+const Product = mongoose.model<ProductDoc, ProductModel>(
   "Product",
   productSchema
 );
 
-export { Product as products };
+export { Product };

@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { products } from "../models/product.model";
+import { Product } from "../models/product.model";
 import { BadRequestError, requireAuthMiddleware } from "@abdulrehmanz/common";
 import { ProductUpdatedPublisher } from "../events/pub/product-updated-pub";
 import { natsWrapper } from "../nats-wrapper";
@@ -11,7 +11,7 @@ router.put(
   requireAuthMiddleware,
   async (req: Request, res: Response) => {
     const id = req.params.id;
-    const product = await products.findById(id);
+    const product = await Product.findById(id);
 
     if (!product) {
       return new BadRequestError("Product not found");

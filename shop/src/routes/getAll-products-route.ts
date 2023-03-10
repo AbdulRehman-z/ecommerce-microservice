@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
-import { products } from "../models/product.model";
+import { Product } from "../models/product.model";
 
 const router = express.Router();
 
 router.get("/api/products", async (req: Request, res: Response) => {
-  const allProducts = await products.find({});
+  const allProducts = await Product.find({});
   return res.status(200).send(allProducts);
 });
 
