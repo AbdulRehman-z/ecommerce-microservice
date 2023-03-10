@@ -35,3 +35,4 @@ __exportStar(require("./events/product-updated-event"), exports);
 __exportStar(require("./events/types/order-status"), exports);
 __exportStar(require("./events/order-created-event"), exports);
 __exportStar(require("./events/order-cancelled-event"), exports);
+__exportStar(require("./events/expiration-completed-event"), exports);
