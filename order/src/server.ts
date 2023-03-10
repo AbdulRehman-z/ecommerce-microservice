@@ -3,6 +3,7 @@ import { natsWrapper } from "./nats-wrapper";
 import { connectDB } from "./services/mongo.service";
 import { ProductCreatedSubscriber } from "./events/sub/product-created-sub";
 import { ProductUpdatedSubscriber } from "./events/sub/product-updated-sub";
+import { ExpirationTimeCompletedSubscriber } from "./events/sub/expiration-completed-sub";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -37,6 +38,7 @@ const start = async () => {
 
     new ProductCreatedSubscriber(natsWrapper.client).listen();
     new ProductUpdatedSubscriber(natsWrapper.client).listen();
+    new ExpirationTimeCompletedSubscriber(natsWrapper.client).listen();
 
     await connectDB();
   } catch (err) {

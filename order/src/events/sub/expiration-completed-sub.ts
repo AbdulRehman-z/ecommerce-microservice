@@ -1,14 +1,14 @@
 import { Message } from "node-nats-streaming";
 import {
   Subjects,
-  Publisher,
   ExpirationTimeCompletedEvent,
   OrderStatus,
+  Subscriber,
 } from "@abdulrehmanz/common";
 import { OrderCancelLedPublisher } from "../pub/order-cancelled-pub";
 import { Order } from "../../models/order.model";
 
-export class ExpirationTimeCompletedPublisher extends Publisher<ExpirationTimeCompletedEvent> {
+export class ExpirationTimeCompletedSubscriber extends Subscriber<ExpirationTimeCompletedEvent> {
   readonly subject = Subjects.ExpirationTimeCompleted;
   queueGroupName = "expiration-service";
 
