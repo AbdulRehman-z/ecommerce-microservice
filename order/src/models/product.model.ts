@@ -1,6 +1,7 @@
 import { OrderStatus } from "@abdulrehmanz/common";
 import mongoose from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import { Order } from "./order.model";
 
 interface ProductAttrs {
   id: string;
@@ -71,7 +72,7 @@ productSchema.statics.build = async (event: {
 };
 
 productSchema.methods.isReserved = async function () {
-  const existingOrder = await Product.findOne({
+  const existingOrder = await Order.findOne({
     product: this,
     status: {
       $in: [
