@@ -23,6 +23,12 @@ router.put(
       );
     }
 
+    if (product.orderId) {
+      return new BadRequestError(
+        "You cannot edit a product that has been reserved"
+      );
+    }
+
     product.set({
       title: req.body.title,
       price: req.body.price,

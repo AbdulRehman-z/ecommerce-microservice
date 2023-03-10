@@ -1,4 +1,6 @@
 import { app } from "./app";
+import { OrderCancelledSubscriber } from "./events/sub/order-cancelled-sub";
+import { OrderCreatedsubscriber } from "./events/sub/order-created-sub";
 import { natsWrapper } from "./nats-wrapper";
 import { connectDB } from "./services/mongo.service";
 
@@ -36,6 +38,9 @@ const start = async () => {
     });
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
+
+    new OrderCancelledSubscriber(natsWrapper.client).listen();
+    new OrderCreatedsubscriber(natsWrapper.client).listen();
 
     await connectDB();
   } catch (err) {
