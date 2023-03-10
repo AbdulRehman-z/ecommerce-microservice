@@ -32,5 +32,7 @@ export class ExpirationTimeCompletedPublisher extends Publisher<ExpirationTimeCo
         id: order.product.id,
       },
     });
+
+    msg.ack();
   }
 }
