@@ -3,6 +3,7 @@ import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import mongoose from "mongoose";
 
 interface OrderAttr {
+  version: number;
   id: string;
   userId: string;
   price: number;
@@ -19,6 +20,10 @@ interface OrderDoc extends mongoose.Document {
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
   build(attr: OrderAttr): OrderDoc;
+  findByIdAndPrevVersion(event: {
+    id: string;
+    version: number;
+  }): Promise<OrderDoc> | null;
 }
 
 const orderSchema = new mongoose.Schema(
@@ -56,6 +61,17 @@ orderSchema.statics.build = (attr: OrderAttr) => {
     price: attr.price,
     status: attr.status,
   });
+};
+
+orderSchema.statics.findByIdAndPrevVersion = async (event) => {
+  try {
+    return await Order.findOne({
+      _id: event.id,
+      version: event.version - 1,
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
 const Order = mongoose.model<OrderDoc, OrderModel>("Order", orderSchema);
