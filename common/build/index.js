@@ -21,6 +21,7 @@ __exportStar(require("./errors/database-connection-error"), exports);
 __exportStar(require("./errors/not-authorized-error"), exports);
 __exportStar(require("./errors/route-not-found-error"), exports);
 __exportStar(require("./errors/request-validation-error"), exports);
+__exportStar(require("./errors/not-found-error"), exports);
 // middlewares
 __exportStar(require("./middlewares/current-user-middleware"), exports);
 __exportStar(require("./middlewares/error-handler-middleware"), exports);
