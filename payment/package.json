@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@abdulrehmanz/common": "^1.0.14",
+    "@sfpy/node-sdk": "^2.0.2",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.15",
     "@types/jsonwebtoken": "^9.0.1",

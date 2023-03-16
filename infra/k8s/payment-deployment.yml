@@ -31,7 +31,21 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-
+            - name: SAFEPAY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: safepay-secret
+                  key: SAFEPAY_KEY
+            - name: SAFEPAY_V1_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: safepay-secret
+                  key: SAFEPAY_KEY
+            - name: SAFEPAY_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: safepay-secret
+                  key: SAFEPAY_KEY
 ---
 apiVersion: v1
 kind: Service
