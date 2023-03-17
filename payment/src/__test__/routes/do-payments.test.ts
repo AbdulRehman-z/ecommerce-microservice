@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../../app";
 import { Order } from "../../models/order.model";
-import stripe from "stripe";
+import { stripe } from "../../stripe";
+import { Payment } from "../../models/payment.model";
 
 it("return 404, if order is not found", async () => {
   await request(app)
@@ -59,11 +60,12 @@ it("return 400, if order is cancelled", async () => {
 
 it("return 201, if payment is successful", async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
+  const price = Math.floor(Math.random() * 100000);
   const order = Order.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     userId,
     version: 0,
-    price: 20,
+    price,
     status: OrderStatus.Created,
   });
   order.save();
@@ -75,4 +77,19 @@ it("return 201, if payment is successful", async () => {
       orderId: order.id,
     })
     .expect(201);
+
+  const stripeCharges = await stripe.charges.list({ limit: 50 });
+  const stripeCharge = stripeCharges.data.find((charge) => {
+    return price * 100 === charge.amount;
+  });
+
+  expect(stripeCharge).toBeDefined();
+  expect(stripeCharge!.currency).toEqual("usd");
+
+  const payment = await Payment.findOne({
+    orderId: order.id,
+    stripeId: stripeCharge!.id,
+  });
+
+  expect(payment).not.toBeNull();
 });
