@@ -39,6 +39,7 @@ const start = async () => {
     new ProductCreatedSubscriber(natsWrapper.client).listen();
     new ProductUpdatedSubscriber(natsWrapper.client).listen();
     new ExpirationTimeCompletedSubscriber(natsWrapper.client).listen();
+    new ProductCreatedSubscriber(natsWrapper.client).listen();
 
     await connectDB();
   } catch (err) {
