@@ -8,7 +8,7 @@ import {
 import express, { Response, Request } from "express";
 import { body } from "express-validator";
 import { Order } from "../models/order.model";
-import { safepay } from "../safepay";
+import { stripe } from "../stripe";
 
 const router = express.Router();
 
@@ -41,9 +41,10 @@ router.post(
     }
 
     // create payment
-    const { token } = safepay.payments.create({
+    await stripe.charges.create({
       amount: order.price * 100,
       currency: "USD",
+      source: "tok_mastercard",
     });
 
     res.status(201).send({ success: true });

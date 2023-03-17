@@ -1,7 +1,7 @@
-const safepay = {
+const stripe = {
   payments: {
     create: jest.fn().mockImplementation({}),
   },
 };
 
-export { safepay };
+export { stripe };

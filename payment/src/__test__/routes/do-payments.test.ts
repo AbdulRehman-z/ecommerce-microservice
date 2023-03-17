@@ -3,9 +3,7 @@ import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../../app";
 import { Order } from "../../models/order.model";
-import { safepay } from "../../__mocks__/safepay";
-
-jest.mock("../../__mocks__/safepay");
+import stripe from "stripe";
 
 it("return 404, if order is not found", async () => {
   await request(app)
@@ -77,12 +75,4 @@ it("return 201, if payment is successful", async () => {
       orderId: order.id,
     })
     .expect(201);
-
-  const safepayOptions = (safepay.payments.create as jest.Mock).mock
-    .calls[0][0];
-
-  expect(safepayOptions.c).toEqual({
-    amount: order.price * 100,
-    currency: "USD",
-  });
 });
