@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  NotFoundError,
   requireAuthMiddleware,
   validateRequest,
 } from "@abdulrehmanz/common";
@@ -18,7 +19,7 @@ router.get(
     const order = await Order.findById(req.params.orderId).populate("product");
 
     if (!order) {
-      throw new BadRequestError("Order not found");
+      throw new NotFoundError("Order not found");
     }
 
     if (order.userId !== req.currentUser!.id) {

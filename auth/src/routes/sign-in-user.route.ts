@@ -1,6 +1,6 @@
 import express from "express";
 import { body } from "express-validator";
-import { validateRequest } from "@abdulrehmanz/common";
+import { NotFoundError, validateRequest } from "@abdulrehmanz/common";
 import { BadRequestError } from "@abdulrehmanz/common";
 import { User } from "../models/User.model";
 import { Password } from "../services/password-hashing.service";
@@ -27,7 +27,7 @@ router.post(
 
     // validate user
     if (!existingUser) {
-      throw new BadRequestError(
+      throw new NotFoundError(
         "You are not registered. Try registering your email first"
       );
     }
