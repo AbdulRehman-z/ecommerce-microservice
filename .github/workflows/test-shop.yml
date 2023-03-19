@@ -1,11 +1,13 @@
 name: test-shop
 
 on:
-  pull_request
-  
+  pull_request:
+    paths:
+      - "shop/**"
+
 jobs:
   build:
-     runs-on: ubuntu-latest
-     steps: 
-       - uses: actions/checkout@v2
-       - run: cd shop && npm install && npm run test:ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd shop && npm install && npm run test:ci
