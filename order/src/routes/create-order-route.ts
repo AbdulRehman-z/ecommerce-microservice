@@ -22,10 +22,7 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     // check if product exists
-    console.log("-----------------------------------");
 
-    console.log("Product id: ", req.body.productId);
-    console.log("-----------------------------------");
     const product = await Product.findById(req.body.productId);
 
     if (!product) {

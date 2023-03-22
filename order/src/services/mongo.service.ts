@@ -10,13 +10,12 @@ export const connectDB = async () => {
       throw new Error("MONGO_URI is undefined");
     }
 
-    console.log("Connecting to MongoDB...");
     mongoose.set("strictQuery", true);
     await mongoose.connect(process.env.MONGO_URI);
     mongoose.connection.on("open", () => {
       console.log("Connected to MongoDB");
     });
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };

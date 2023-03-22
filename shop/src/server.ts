@@ -23,9 +23,7 @@ const start = async () => {
 
   try {
     console.log("Connecting to NATS");
-    console.log("NATS_CLUSTER_ID: " + process.env.NATS_CLUSTER_ID);
-    console.log("NATS_CLIENT_ID: " + process.env.NATS_CLIENT_ID);
-    console.log("NATS_URL: " + process.env.NATS_URL);
+
     await natsWrapper.connect(
       process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,

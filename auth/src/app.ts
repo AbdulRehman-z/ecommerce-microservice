@@ -19,7 +19,6 @@ app.use(
   cookieSession({
     signed: false, // disable encryption
     secure: false,
-    // secure: process.env.NODE_ENV !== "test", // only use cookies over https
   })
 );
 
@@ -29,14 +28,5 @@ app.use(signInUserRouter);
 app.use(signOutUserRouter);
 app.use(currentUserRouter);
 
-// app.all("*", async (req, res) => {
-//   try {
-//   } catch (_) {
-//     throw new RouteNotFoundError();
-//   }
-// });
-
 /* error handling */
 app.use(errorHandlerMiddleware);
-
-// "start":"ts-node-dev --poll src/index.ts"  // this is for ts-node-dev

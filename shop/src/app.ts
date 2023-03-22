@@ -22,7 +22,6 @@ app.use(
   cookieSession({
     signed: false, // disable encryption
     secure: false,
-    // secure: process.env.NODE_ENV !== "test", // only use cookies over https
   })
 );
 app.use(currentUserMiddleware);
@@ -34,5 +33,3 @@ app.use(getSingleProductRouter);
 app.use(updateProductRouter);
 /* error handling */
 app.use(errorHandlerMiddleware);
-
-// "start":"ts-node-dev --poll src/index.ts"  // this is for ts-node-dev
